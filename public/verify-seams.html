@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Seam verification</title>
+<style>
+  body { background:#111; color:#eee; font-family:monospace; margin:0; padding:8px; }
+  .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .cell { position:relative; }
+  .cell video, .cell img { width:100%; display:block; }
+  .cell .label { position:absolute; top:4px; left:4px; background:rgba(0,0,0,.7); padding:2px 6px; font-size:12px; }
+</style>
+</head>
+<body>
+<div class="grid" id="grid"></div>
+<script>
+  const mode = new URLSearchParams(location.search).get('t') || 'end';
+  const clips = [
+    'clip1-aisle-to-bag', 'clip2-bag-to-roaster', 'clip3-roaster-to-crack',
+    'clip4-crack-to-bloom', 'clip5-bloom-to-notes', 'clip6-notes-to-morning'
+  ];
+  const grid = document.getElementById('grid');
+  let ready = 0;
+  clips.forEach((name, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    const v = document.createElement('video');
+    v.src = 'assets/video/' + name + '.mp4';
+    v.muted = true; v.preload = 'auto';
+    v.addEventListener('loadedmetadata', () => {
+      v.currentTime = (mode === 'end') ? Math.max(0, v.duration - 0.05) : 0.01;
+    });
+    v.addEventListener('seeked', () => {
+      ready++;
+      if (ready === clips.length) document.title = 'SEEKED-ALL-' + mode;
+    });
+    const label = document.createElement('div');
+    label.className = 'label';
+    label.textContent = name + ' [' + mode + ']';
+    cell.appendChild(v); cell.appendChild(label); grid.appendChild(cell);
+  });
+</script>
+</body>
+</html>

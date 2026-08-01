@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@theme {
+  --color-char: #17130f;
+  --color-ink: #0d0b08;
+  --color-bone: #efe9e1;
+  --color-bone-dim: #b7ac9c;
+  --color-blueberry: #5b4b8a;
+  --color-strawberry: #c4485b;
+  --color-apricot: #e8a15c;
+  --color-apricot-bright: #f0b274;
+  --color-stamp-ink: #e06378;
+
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-body: "Karla", -apple-system, "Helvetica Neue", sans-serif;
+  --font-stamp: ui-monospace, "SF Mono", Menlo, "Courier New", monospace;
+
+  --animate-hint-drift: hint-drift 2.2s ease-in-out infinite;
+
+  @keyframes hint-drift {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.7;
+    }
+    50% {
+      transform: translateY(6px);
+      opacity: 1;
+    }
+  }
+}
+
+@layer base {
+  /* the one rule with no utility form: a global visible focus indicator */
+  :focus-visible {
+    outline: 3px solid var(--color-apricot);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+/* rubber-stamp labels: structure = time since roast */
+@utility stamp {
+  display: inline-block;
+  font-family: var(--font-stamp);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--color-stamp-ink);
+  background: --alpha(var(--color-ink) / 25%);
+  backdrop-filter: blur(3px);
+  border: 2px solid currentColor;
+  padding: 0.4em 0.85em;
+  border-radius: 3px;
+  transform: rotate(-1.4deg);
+  text-shadow: 0 0 0.8px currentColor;
+}
+
+@utility display-head {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.18;
+  text-wrap: balance;
+}
+
+/* film captions: shown/hidden by the scroll engine toggling `caption-on` */
+@utility caption {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+@utility caption-on {
+  opacity: 1;
+  transform: none;
+}
