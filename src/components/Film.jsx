@@ -25,6 +25,18 @@ const Film = forwardRef(function Film(_, sectionRef) {
     let activeClip = -1;
     const n = CLIPS.length;
 
+    // clips 1-2 preload up front; the rest fetch one segment ahead of the scroll
+    const loadStarted = CLIPS.map((_, i) => i < 2);
+    function ensureLoaded(i) {
+      if (i < 0 || i >= n || loadStarted[i]) return;
+      loadStarted[i] = true;
+      const v = videoRefs.current[i];
+      if (v) {
+        v.preload = "auto";
+        v.load();
+      }
+    }
+
     function progress() {
       const el = sectionRef.current;
       if (!el) return 0;
@@ -38,6 +50,9 @@ const Film = forwardRef(function Film(_, sectionRef) {
       const p = progress();
       const seg = Math.min(n - 1, Math.floor(p * n));
       const local = p * n - seg;
+
+      ensureLoaded(seg);
+      ensureLoaded(seg + 1);
 
       if (seg !== activeClip) {
         videoRefs.current.forEach((v, i) => {
@@ -120,7 +135,7 @@ const Film = forwardRef(function Film(_, sectionRef) {
             className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-100"
             muted
             playsInline
-            preload="auto"
+            preload={i < 2 ? "auto" : "none"}
             poster={`${BASE}assets/posters/k${i + 1}.jpg`}
             src={`${BASE}assets/video/${name}.mp4`}
             onError={() => setDead(true)}
