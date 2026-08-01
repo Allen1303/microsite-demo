@@ -12,6 +12,14 @@
 </head>
 <body>
 <div class="phone"><iframe id="app" src="./"></iframe></div>
-<div id="info">phone harness: 390&times;844 iframe &rarr; media queries + svh resolve to phone viewport</div>
+<div id="info">phone harness: 390&times;844 iframe &rarr; media queries + svh resolve to phone viewport. Override with ?w=&amp;h=</div>
+<script>
+  const q = new URLSearchParams(location.search);
+  if (q.get('w') || q.get('h')) {
+    const W = (q.get('w') || 390) + 'px', H = (q.get('h') || 844) + 'px';
+    const ph = document.querySelector('.phone'), fr = document.getElementById('app');
+    ph.style.width = W; ph.style.height = H; fr.style.width = W; fr.style.height = H;
+  }
+</script>
 </body>
 </html>
