@@ -149,7 +149,7 @@ const Film = forwardRef(function Film(_, sectionRef) {
           <div
             key={cap.stamp}
             ref={(el) => (captionRefs.current[i] = el)}
-            className="caption pointer-events-none absolute bottom-[calc(max(1rem,env(safe-area-inset-bottom))+5.5rem)] left-1/2 flex w-[min(92vw,44rem)] -translate-x-1/2 flex-col items-center gap-3.5 text-center"
+            className="caption pointer-events-none absolute bottom-[calc(max(1rem,env(safe-area-inset-bottom))+5.5rem)] left-1/2 flex w-[min(92vw,38rem)] lg:w-[min(92vw,44rem)] -translate-x-1/2 flex-col items-center gap-3.5 text-center"
           >
             <span className="stamp">{cap.stamp}</span>
             {cap.hero ? (

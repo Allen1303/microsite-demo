@@ -42,12 +42,20 @@ export default function Header() {
           </a>
         </nav>
 
+        <div className="flex items-center gap-3 md:hidden">
+          {/* tablets get the CTA pill up top; phones rely on the bottom bar */}
+          <a
+            href="#order"
+            className="hidden sm:inline-flex items-center min-h-11 rounded-lg bg-bone px-5 py-2.5 text-[0.9375rem] font-bold text-char no-underline hover:bg-white active:translate-y-px"
+          >
+            Get this week's roast
+          </a>
         <button
           type="button"
           aria-expanded={open}
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen(!open)}
-          className="md:hidden flex size-11 cursor-pointer flex-col items-center justify-center gap-[5px] rounded-full border border-bone/25 bg-ink/60"
+          className="flex size-11 cursor-pointer flex-col items-center justify-center gap-[5px] rounded-full border border-bone/25 bg-ink/60"
         >
           <span
             className={`block h-[2px] w-5 bg-bone transition-transform ${open ? "translate-y-[7px] rotate-45" : ""}`}
@@ -57,6 +65,7 @@ export default function Header() {
             className={`block h-[2px] w-5 bg-bone transition-transform ${open ? "-translate-y-[7px] -rotate-45" : ""}`}
           />
         </button>
+        </div>
       </div>
 
       {open && (
