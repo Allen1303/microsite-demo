@@ -1,6 +1,8 @@
 import { forwardRef, useEffect, useRef, useState } from "react";
 import { CAPTIONS, CLIPS } from "../copy.js";
 
+const BASE = import.meta.env.BASE_URL;
+
 /**
  * The scroll-film: 6 clips shot as one continuous camera move, scrubbed by
  * scroll. Falls back to still keyframes when motion is reduced, data is
@@ -83,7 +85,7 @@ const Film = forwardRef(function Film(_, sectionRef) {
           <div
             key={cap.stamp}
             className="relative flex min-h-[88svh] items-end justify-center bg-cover bg-center px-[4vw] pb-[12svh]"
-            style={{ backgroundImage: `url(/assets/posters/k${cap.poster}.jpg)` }}
+            style={{ backgroundImage: `url(${BASE}assets/posters/k${cap.poster}.jpg)` }}
           >
             <div className="absolute inset-0 bg-gradient-to-b from-ink/10 from-50% to-ink/80" />
             <div className="relative z-1 flex w-[min(92vw,44rem)] flex-col items-center gap-3.5 text-center">
@@ -119,8 +121,8 @@ const Film = forwardRef(function Film(_, sectionRef) {
             muted
             playsInline
             preload="auto"
-            poster={`/assets/posters/k${i + 1}.jpg`}
-            src={`/assets/video/${name}.mp4`}
+            poster={`${BASE}assets/posters/k${i + 1}.jpg`}
+            src={`${BASE}assets/video/${name}.mp4`}
             onError={() => setDead(true)}
           />
         ))}
