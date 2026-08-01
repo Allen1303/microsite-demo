@@ -99,7 +99,7 @@ const Film = forwardRef(function Film(_, sectionRef) {
         {[...CAPTIONS.map((c, i) => ({ ...c, poster: i + 1 }))].map((cap) => (
           <div
             key={cap.stamp}
-            className="relative flex min-h-[88svh] items-end justify-center bg-cover bg-center px-[4vw] pb-[12svh]"
+            className="relative flex min-h-[88svh] items-end justify-center bg-cover bg-center px-[4vw] pb-[calc(max(1rem,env(safe-area-inset-bottom))+5.5rem)]"
             style={{ backgroundImage: `url(${BASE}assets/posters/k${cap.poster}.jpg)` }}
           >
             <div className="absolute inset-0 bg-gradient-to-b from-ink/10 from-50% to-ink/80" />
@@ -149,7 +149,7 @@ const Film = forwardRef(function Film(_, sectionRef) {
           <div
             key={cap.stamp}
             ref={(el) => (captionRefs.current[i] = el)}
-            className="caption pointer-events-none absolute bottom-[9svh] left-1/2 flex w-[min(92vw,44rem)] -translate-x-1/2 flex-col items-center gap-3.5 text-center"
+            className="caption pointer-events-none absolute bottom-[calc(max(1rem,env(safe-area-inset-bottom))+5.5rem)] left-1/2 flex w-[min(92vw,44rem)] -translate-x-1/2 flex-col items-center gap-3.5 text-center"
           >
             <span className="stamp">{cap.stamp}</span>
             {cap.hero ? (
